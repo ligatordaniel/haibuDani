@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../service/user-service.service';
+import { UserService } from '../../services/user-service.service';
 import * as moment from 'moment';
 
 @Component({
@@ -18,7 +18,13 @@ export class UsersListComponent implements OnInit {
     this.title = "Lista de usuarios";
    }
 
-  filterPost = '';
+
+  handleSearch(value:string){
+    console.log(value);
+    this.filtroValor = value;
+  }
+
+  filtroValor = ''
 
   ngOnInit(): void {
     this.getUsers();

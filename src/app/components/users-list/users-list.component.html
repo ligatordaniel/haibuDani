@@ -1,17 +1,9 @@
 <h2>{{title}}</h2>
 
-<form class="form-inline my-2 my-lg-0">
-  <label for="exampleInputEmail1"></label>
-  <input type="search" class="form-control mr-sm-2" required placeholder="Search" aria-label="Search"
-  name="filterPost"
-  [(ngModel)]="filterPost"
-  #name="ngModel">
-  <!--form angular vincula con user en .ts||#email="ngModel" permite usar propiedades del FormModule -->
-  <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
-</form>
+<app-search (search)="handleSearch($event)"></app-search>
 
 <table>
-  <tr *ngFor="let user of users | filter:filterPost">
+  <tr *ngFor="let user of users | search:filtroValor"><!--| filter:filterPost-->
     <td>ID {{user.id}}</td>-
     <td>Nombre: {{user.nombre}} {{user.apellido}}</td>
     <td>Rut: {{user.rut}}</td>
@@ -19,30 +11,6 @@
     <td>Dirección: {{user.direccion.calle}}({{user.direccion.numero}}), {{user.direccion.comuna}}</td>
     <td>Teléfono: {{user.telefono}}</td>
     <td>Estado: {{user.activo !== 0 ? 'activo' : 'inactivo'}}</td>
-  </tr>
-</table>
-
-<table>
-  <tr *ngFor="let user of users"><!--| filter:filterPost-->
-    <td>ID {{user.id}}-</td>
-    <td>{{user.nombre}} {{user.apellido}}</td>
-
-    <div>
-      <a data-toggle="collapse" href="#multiCollapseExample5" role="button" aria-expanded="false"
-        aria-controls="multiCollapseExample1">
-        <span class="material-icons">search</span></a>
-
-          <div class="collapse multi-collapse">
-
-              <td>Rut: {{user.rut}}</td>
-              <td>Fecha Nacimiento: {{user.fechaNacimiento}}</td>
-              <td>Dirección: {{user.direccion.calle}}({{user.direccion.numero}}), {{user.direccion.comuna}}</td>
-              <td>Teléfono: {{user.telefono}}</td>
-              <td>Estado: {{user.activo !== 0 ? 'activo' : 'inactivo'}}</td>
-
-          </div>
-
-    </div>
 
   </tr>
 </table>
