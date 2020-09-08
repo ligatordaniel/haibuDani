@@ -8,7 +8,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let user of users | search:valueFilter" >
-      <td><a class="trigger" (click)="openModal(user)">{{user.nombre}} {{user.apellido}}</a></td>
+      <td (click)="openModal(user)"><a class="trigger" >{{user.nombre}} {{user.apellido}}</a></td>
     </tr>
   </tbody>
 </table>
