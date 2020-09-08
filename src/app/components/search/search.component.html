@@ -1,7 +1,13 @@
-<form class="form-inline my-2 my-lg-0">
-  <label for="exampleInputEmail1"></label>
-  <input type="search" class="form-control mr-sm-2" placeholder="Search" aria-label="Search"
-  [formControl]="search">
-  <!--form angular vincula con user en .ts||#email="ngModel" permite usar propiedades del FormModule -->
-  <!--<button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>-->
-</form>
+<nav>
+  <div class="nav-wrapper teal lighten-2">
+    <form>
+      <div class="input-field">
+        <input type="search" class="form-control mr-sm-2" placeholder="Search" aria-label="Search"
+          [formControl]="search">
+        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+        <i class="material-icons">close</i>
+      </div>
+    </form>
+  </div>
+</nav>
+

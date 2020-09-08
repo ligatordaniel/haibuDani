@@ -10,6 +10,7 @@ import { UsersListComponent } from './components/users-list/users-list.component
 import { SearchComponent } from './components/search/search.component';
 import { HomeComponent } from './components/home/home.component';
 import { SearchPipe } from './pipes/search.pipe';
+import { ModalComponent } from './components/modal/modal.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { SearchPipe } from './pipes/search.pipe';
     UsersListComponent,
     SearchComponent,
     HomeComponent,
-    SearchPipe
+    SearchPipe,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,

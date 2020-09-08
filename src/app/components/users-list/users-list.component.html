@@ -1,16 +1,33 @@
-<h2>{{title}}</h2>
-
 <app-search (search)="handleSearch($event)"></app-search>
 
-<table>
-  <tr *ngFor="let user of users | search:filtroValor"><!--| filter:filterPost-->
-    <td>ID {{user.id}}</td>-
-    <td>Nombre: {{user.nombre}} {{user.apellido}}</td>
-    <td>Rut: {{user.rut}}</td>
-    <td>Fecha Nacimiento: {{user.fechaNacimiento}}</td>
-    <td>Dirección: {{user.direccion.calle}}({{user.direccion.numero}}), {{user.direccion.comuna}}</td>
-    <td>Teléfono: {{user.telefono}}</td>
-    <td>Estado: {{user.activo !== 0 ? 'activo' : 'inactivo'}}</td>
-
+<!--table>
+  <thead class="striped">
+  <tr *ngFor="let user of users | search:filtroValor">
+    <th> <i class="material-icons">person</i>ID.{{user.id}}</th>
+    <th>Nombre: {{user.nombre}} {{user.apellido}}</th>
+    <th>Rut: {{user.rut}}</th>
+    <th>Fecha Nacimiento: {{user.fechaNacimiento}}</th>
+    <th>Dirección: {{user.direccion.calle}}({{user.direccion.numero}}), {{user.direccion.comuna}}</th>
+    <th>Teléfono:+{{user.telefono}}</th>
+    <th>Estado: {{user.activo !== 0 ? 'activo' : 'inactivo'}}</th>
   </tr>
+  </thead>
+</table-->
+
+<table class="striped">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users | search:filtroValor" >
+      <td><a class="trigger" (click)="openModal(user)">{{user.nombre}} {{user.apellido}}</a></td>
+    </tr>
+  </tbody>
 </table>
+
+<app-modal #modal>
+</app-modal>
+
+

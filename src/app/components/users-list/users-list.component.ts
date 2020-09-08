@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../../services/user-service.service';
 import * as moment from 'moment';
 
@@ -10,14 +10,11 @@ import * as moment from 'moment';
 export class UsersListComponent implements OnInit {
   public title: string;
   public users = [];
-  public alertMessage: any;
-
-
+  @ViewChild('modal') modal;
 
   constructor(private userService: UserService) {
     this.title = "Lista de usuarios";
    }
-
 
   handleSearch(value:string){
     console.log(value);
@@ -47,7 +44,7 @@ export class UsersListComponent implements OnInit {
   }
 
   isValidDate(date) {
-    return moment(date, "DD/MM/YYYY", true).isValid() ? date : 'Dato inválido';
+    return moment(date, "DD/MM/YYYY", true).isValid() ? date : `${date} (Fecha inválida)`;
   }
 
     rutIsValid(rut) {
@@ -85,7 +82,16 @@ export class UsersListComponent implements OnInit {
       const dgv = split[1];
 
       const dvCalc = calculateDV(num);
-      return dvCalc === dgv ? rut : 'Inválido'; /*rut Invalido*/
+      return dvCalc === dgv ? rut : `${rut} (rut inválido)`; /*rut Inválido*/
+    }
+
+    openModal(user) {
+      this.modal.user = user;
+      this.modal.toggleModal();
+    }
+
+    closeModal() {
+      this.modal.toggleModal();
     }
  }
 

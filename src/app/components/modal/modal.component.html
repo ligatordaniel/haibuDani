@@ -1,0 +1,32 @@
+<div class="page-modal modal-xs" *ngIf="showModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <h1>{{user.nombre}} {{user.apellido}}</h1>
+      <table class="striped">
+        <thead>
+          <tr>
+            <th>Rut</th>
+            <th>Fecha de nacimiento</th>
+            <th>ID de usuario</th>
+            <th>Teléfono</th>
+            <th>Dirección</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{user.rut}}</td>
+            <td>{{user.fechaNacimiento}}</td>
+            <td>{{user.id}}</td>
+            <td>{{user.direccion.calle}} #{{user.direccion.numero}}, {{user.direccion.comuna}}</td>
+            <td>+{{user.telefono}}</td>
+            <td>{{user.activo !== 0 ? 'Activo' : 'Inactivo'}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="btn modal-trigger" (click)="toggleModal()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+
