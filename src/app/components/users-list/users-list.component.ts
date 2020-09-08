@@ -9,32 +9,34 @@ import * as moment from 'moment';
 })
 export class UsersListComponent implements OnInit {
   public title: string;
-  public users = [];
-  @ViewChild('modal') modal;
+  public valueFilter: string;
+  public users: any;
+  @ViewChild('detailModal') modal;
 
   constructor(private userService: UserService) {
     this.title = "Lista de usuarios";
+    this.valueFilter = "";
+    this.users = [];
    }
 
   handleSearch(value:string){
     console.log(value);
-    this.filtroValor = value;
+    this.valueFilter = value;
   }
-
-  filtroValor = ''
 
   ngOnInit(): void {
     this.getUsers();
   }
+
   getUsers() {
     this.userService.getAllPeople().subscribe(
       (res: any) => {
         const response = res;
-        response.forEach(item => {
-          item.fechaNacimiento = this.isValidDate(item.fechaNacimiento);
-          item.rut = this.rutIsValid(item.rut);
-          this.users.push(item);
-        })
+        response.forEach(person => {
+          person.fechaNacimiento = this.isValidDate(person.fechaNacimiento);
+          person.rut = this.rutIsValid(person.rut) ? person.rut : `${person.rut} (Rut inválido)`;
+          this.users.push(person);
+        });
         console.log(this.users);
       },
       err => {
@@ -47,50 +49,52 @@ export class UsersListComponent implements OnInit {
     return moment(date, "DD/MM/YYYY", true).isValid() ? date : `${date} (Fecha inválida)`;
   }
 
-    rutIsValid(rut) {
-       function calculateDV(rut) {
-        const body = rut;
-        let sum = 0;
-        let multiple = 2;
+  public calculateDV(rut): string {
+    const body = `${rut}`;
+    let sum = 0;
+    let multiple = 2;
 
-        for (let i = 1; i <= body.length; i++) {
-          const index = multiple * body.charAt(body.length - i);
+    for (let i = 1; i <= body.length; i++) {
+      const index = multiple * parseInt(body.charAt(body.length - i), 10);
 
-          sum += index;
+      sum += index;
 
-          if (multiple < 7) {
-            multiple += 1;
-          } else {
-            multiple = 2;
-          }
-        }
-
-        const dvExpected = 11 - (sum % 11);
-        if (dvExpected === 10) return "k";
-        if (dvExpected === 11) return "0";
-        return dvExpected;
+      if (multiple < 7) {
+        multiple += 1;
+      } else {
+        multiple = 2;
       }
-      if (!rut || rut.trim().length < 3) return false;
-      const sanitizedRut = rut.replace(/[^0-9kK-]/g, "");
-
-      if (sanitizedRut.length < 3) return false;
-
-      const split = sanitizedRut.split("-");
-      if (split.length !== 2) return false;
-
-      const num = parseInt(split[0], 10);
-      const dgv = split[1];
-
-      const dvCalc = calculateDV(num);
-      return dvCalc === dgv ? rut : `${rut} (rut inválido)`; /*rut Inválido*/
     }
 
-    openModal(user) {
+    const dvExpected = 11 - (sum % 11);
+    if (dvExpected === 10) { return 'k'; }
+    if (dvExpected === 11) { return '0'; }
+    return `${dvExpected}`;
+  }
+
+
+  rutIsValid(rut): boolean {
+    if (!rut || rut.trim().length < 3) { return false; }
+    const sanitizedRut = rut.replace(/[^0-9kK-]/g, '');
+
+    if (sanitizedRut.length < 3) { return false; }
+
+    const split = sanitizedRut.split('-');
+    if (split.length !== 2) { return false; }
+
+    const num = parseInt(split[0], 10);
+    const dgv = split[1];
+
+    const dvCalc = this.calculateDV(num);
+    return dvCalc === dgv;
+  }
+
+    openModal(user): void {
       this.modal.user = user;
       this.modal.toggleModal();
     }
 
-    closeModal() {
+    closeModal(): void {
       this.modal.toggleModal();
     }
  }

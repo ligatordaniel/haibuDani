@@ -6,9 +6,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent implements OnInit {
-  showModal: boolean = false;
-  user: any;
-  constructor() { }
+  public showModal: boolean;
+  public user: any;
+  constructor() {
+    this.showModal = false;
+  }
 
   ngOnInit() {
   }
@@ -18,7 +20,7 @@ export class ModalComponent implements OnInit {
    *
    * @memberof ModalComponent
    */
-  toggleModal() {
+  toggleModal(): void {
     this.showModal = !this.showModal;
   }
 }

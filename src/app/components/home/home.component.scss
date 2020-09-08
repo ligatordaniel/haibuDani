@@ -1,0 +1,18 @@
+.logo {
+  display: flex;
+  justify-content: center;
+}
+.haibu-logo {
+  height: 80px;
+}
+.title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  .haibu-logo {
+    height: 60px;
+  }
+}

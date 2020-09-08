@@ -1,19 +1,5 @@
 <app-search (search)="handleSearch($event)"></app-search>
 
-<!--table>
-  <thead class="striped">
-  <tr *ngFor="let user of users | search:filtroValor">
-    <th> <i class="material-icons">person</i>ID.{{user.id}}</th>
-    <th>Nombre: {{user.nombre}} {{user.apellido}}</th>
-    <th>Rut: {{user.rut}}</th>
-    <th>Fecha Nacimiento: {{user.fechaNacimiento}}</th>
-    <th>Dirección: {{user.direccion.calle}}({{user.direccion.numero}}), {{user.direccion.comuna}}</th>
-    <th>Teléfono:+{{user.telefono}}</th>
-    <th>Estado: {{user.activo !== 0 ? 'activo' : 'inactivo'}}</th>
-  </tr>
-  </thead>
-</table-->
-
 <table class="striped">
   <thead>
     <tr>
@@ -21,13 +7,12 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let user of users | search:filtroValor" >
+    <tr *ngFor="let user of users | search:valueFilter" >
       <td><a class="trigger" (click)="openModal(user)">{{user.nombre}} {{user.apellido}}</a></td>
     </tr>
   </tbody>
 </table>
 
-<app-modal #modal>
-</app-modal>
+<app-modal #detailModal></app-modal>
 
 
